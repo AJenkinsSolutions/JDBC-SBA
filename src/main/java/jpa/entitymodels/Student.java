@@ -51,13 +51,13 @@ public class Student implements Serializable{
 	}
 	
 	
-	public Student(String sEmail, String sName, String sPass, Set<Course>scourses) {
+	public Student(String sEmail, String sName, String sPass) {
 		super();
 		
 		this.sEmail = sEmail;
 		this.sName = sName;
 		this.sPass = sPass;
-		this.sCourses = scourses;
+		
 	}
 
 	

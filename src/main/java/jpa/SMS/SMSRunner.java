@@ -32,20 +32,17 @@ public class SMSRunner
 		System.out.println("**Successfully Opened Session**");
 		
 		Transaction trans = session.beginTransaction();
-      
-		//================Seed Data base===================//
-		//			Create Tables
-//        Student std = new Student();
-//        Course crs = new Course();
-  
-			MenuService menu = new MenuService();
-			menu.runMenu(session);
+		
+
+	
+		MenuService menu = new MenuService();		
+		menu.runMenu(session);
+			
     
-        //=======Close connection =====///
         
-        trans.commit();
+		trans.commit();
         factory.close();
-        session.close();
+        session.close(); 
         	 
     }
 }

@@ -37,9 +37,8 @@ public class Course implements Serializable{
 		this.cInstructorName = null; 
 	}
 	
-	public Course(int cid, String cName, String cInstructorName) {
+	public Course(String cName, String cInstructorName) {
 		super();
-		this.cid = cid;
 		this.cName = cName;
 		this.cInstructorName = cInstructorName;
 	}

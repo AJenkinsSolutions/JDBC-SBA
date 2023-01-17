@@ -1,6 +1,7 @@
 package jpa.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -119,12 +120,9 @@ public class StudentService extends HibernateUtil implements StudentDAO {
 
 	@Override
 	public Set<Course> getStudentCourses(Student student, Session session) {
-		
 		// iterate through the list of Courses
 		Set<Course> cList = student.getsCourses();
-		Iterator<Course> itr = cList.iterator();
 		
-
 		return cList;
 	}
 
@@ -140,17 +138,36 @@ public class StudentService extends HibernateUtil implements StudentDAO {
 		Course c1 = crsList.get(courseId -1);
 		
 		//get current students, current courses
-		Set<Course> currentList = student.getsCourses();
+		try {
+			Set<Course> currentList = student.getsCourses();
+			//adding course to array list
+			currentList.add(c1);
+			//save the course
+			session.save(c1);
+			//set student course set
+			student.setsCourses(currentList);
+					
+			//Store student
+			session.save(student);
+			
+			
+		} catch (NullPointerException e) {
+			Set<Course> newCrsList = new HashSet<Course>();
+			
+			newCrsList.add(c1);
+			//adding course to array list
+			//save the course
+			session.save(c1);
+			//set student course set
+			student.setsCourses(newCrsList);
+					
+			//Store student
+			session.save(student);
+			
+		}
 		
-		//adding course to array list
-		currentList.add(c1);
-		//save the course
-		session.save(c1);
-		//set student course set
-		student.setsCourses(currentList);
-				
-		//Store student
-		session.save(student);
+		
+		
 		
 	}
 
