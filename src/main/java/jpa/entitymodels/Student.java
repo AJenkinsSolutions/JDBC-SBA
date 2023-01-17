@@ -19,7 +19,11 @@ import javax.persistence.Table;
 
 
 
-
+/**
+ * Filename: Student.java
+ * @author Alexander Jenkins
+ * 01/17/2023
+ */
 @Entity
 @Table(name = "Student")
 public class Student implements Serializable{

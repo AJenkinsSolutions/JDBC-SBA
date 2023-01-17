@@ -21,6 +21,11 @@ import com.mysql.cj.x.protobuf.MysqlxExpect.Open.Condition.Key;
 import jpa.entitymodels.Course;
 import jpa.entitymodels.Student;
 
+/**
+ * Filename: MenuService.java
+ * @author Alexander Jenkins
+ * 01/17/2023
+ */
 public class MenuService {
 	
 	
@@ -29,7 +34,11 @@ public class MenuService {
 	public CourseService crsService = new CourseService();
 	
 	
-	
+	/**
+	 * Handles the execution of our MenuService helper methods 
+	 * in order to excute CRUD operation with SmsRunner.java
+	 * @param session
+	 */
 	public  void runMenu(Session session) {
 		
 		Scanner consoleIn = new Scanner(System.in);
@@ -175,10 +184,10 @@ public class MenuService {
 		
 		List<Course> crslistSet = crsService.getAllCourses(session);
 		if(crslistSet.size() == 0 || crslistSet== null) {
-			System.out.println("Seed required ");
+			System.out.println("Seedins Required ");
 			seedDataBase(session);
 		}else{
-			System.out.println("Seed not needed");
+			System.out.println("Seeding is not needed");
 		}
 	}
 	
@@ -300,7 +309,7 @@ public class MenuService {
 	 * @return
 	 */
 	public boolean logout() {
-		System.out.println("Exiting...Goodbye");
+		System.out.println("Exiting... Goodbye");
 		return false;
 	}
 	
@@ -343,7 +352,7 @@ public class MenuService {
 			
 				if(userSelection == 1 || userSelection == 2 || userSelection == 9) {
 
-					
+					if(userSelection == 1) {System.out.println("Loading Login menu....\n");}
 					phase1Game = false;
 				}else {
 					System.out.println("Opps... Only Enter 1 or 2...");
@@ -368,7 +377,14 @@ public class MenuService {
 	  * Displays welcome message header to user
 	  */
 	public void displayWelcomeMessageHeaderP1() {
-		System.out.println("\n====== Welcome to the Menu ======\n");
+		System.out.println("\n |-------------------------------------------------------------------|\n");
+		System.out.println("  ____  __  __ ____    __  __    _    _   _    _    ____ _____ ____   \n"
+				+ " / ___||  \\/  / ___|  |  \\/  |  / \\  | \\ | |  / \\  / ___| ____|  _ \\  \n"
+				+ " \\___ \\| |\\/| \\___ \\  | |\\/| | / _ \\ |  \\| | / _ \\| |  _|  _| | |_) | \n"
+				+ "  ___) | |  | |___) | | |  | |/ ___ \\| |\\  |/ ___ \\ |_| | |___|  _ <  \n"
+				+ " |____/|_|  |_|____/  |_|  |_/_/   \\_\\_| \\_/_/   \\_\\____|_____|_| \\_\\ \n"
+				+ "                                                                      ");
+		System.out.println("\n |-----------------------------|Main Menu|---------------------------|\n");
 		
 	}
 	
@@ -376,10 +392,11 @@ public class MenuService {
 	 * Displays Main Menu Options to user
 	 */
 	public void displayMenuOptionsP1() {
-		System.out.println("1. Login");
-		System.out.println("2. Exit\n");
-		System.out.println("9. Reset DataBase\n");
-		System.out.println("Please Select 1, 2, 9");
+		System.out.println("Please select an Option below\n");
+		System.out.println("1. | Login          |   ");
+		System.out.println("2. | Exit           |   ");
+		System.out.println("9. | Reset DataBase |\n");
+
 	}
 
 
@@ -429,6 +446,7 @@ public class MenuService {
 		Scanner inputConsole = new Scanner(System.in); 
 		boolean phase2Game = true;
 		//get user input
+		displayLoginHeaderP2();
 		displayLoginPromptP2();
 		
 		while(phase2Game) {
@@ -438,9 +456,9 @@ public class MenuService {
 
 				emailInput = (String) inputConsole.nextLine();
 
-				//validate email
+				
 				if(vaildEmail(emailInput)) {
-					//
+				
 					phase2Game = false;
 				}else {
 
@@ -476,23 +494,21 @@ public class MenuService {
 		
 		boolean phase2BGameOn = true;
 		boolean phase3On = false;
-		//Get email, validate Password
+
 		int isvald = stdService.validateStudent(session, emailInput);
 		
-			System.out.println(isvald);
 			switch (isvald) {
 			case 1:
-//				System.out.println("DEBUG: EMAIL IS NOT FOUND");
+
 				System.out.println("Opp... I cant find that email" + emailInput);
 				phase3On = false;
 				break;
 			case 2:
-//				System.out.println("DEBUG: PASSWORD DOES NOT MATCH");
-				System.out.println();
+
 				phase3On = false;
 				break;
 			case 3:
-//				System.out.println("DEBUG: SUCCESS BOTH MATCH");
+
 				System.out.println("Yay!!! Student Found");
 				phase3On = true;
 				break;
@@ -508,7 +524,7 @@ public class MenuService {
 	 * Display Login Phase header to user
 	 */
 	public void displayLoginHeaderP2() {
-		System.out.println("            Welcome to Login Menu");
+		System.out.println("|-----------------------------|Login Menu|---------------------------|\n");
 	}
 	
 	
@@ -543,8 +559,8 @@ public class MenuService {
 	 */
 	public int phase3(Session session,Student student){
 
-		displayRegisterWelcomeMessageP3(student);
-		displayCourseListHeaderP3();
+		
+		
 		//display courses
 		displayStudentCurrentCoursesP3(student, session);
 		
@@ -579,7 +595,7 @@ public class MenuService {
 					phase3Game = false;
 				}else {
 					System.out.println("Opps... Only Enter 1 or 2...");
-//					System.out.println("DEBUG phase 3: inValidate selection ");
+
 					displayRegisterOptionsP3();
 				}
 				
@@ -594,8 +610,6 @@ public class MenuService {
 		
 		}
 		
-		System.out.println("DEBUG: Phase3 InputOutside while loop");
-		//Display the classes 
 		return userSelection;
 		
 		
@@ -609,9 +623,11 @@ public class MenuService {
 	 */
 	public void displayStudentCurrentCoursesP3(Student student, Session session) {
 		Set<Course> courseList = stdService.getStudentCourses(student, session);
+		
 		try {
 			Iterator<Course> itr = courseList.iterator();
-			
+			displayRegisterWelcomeMessageP3(student);
+			displayCourseListHeaderP3();
 			while(itr.hasNext()) {
 				Course c = itr.next();
 				System.out.println(c.getCid() + "  " + c.getcName() + "  " + c.getcInstructorName());
@@ -635,11 +651,12 @@ public class MenuService {
 	}
 	
 	public void displayRegisterWelcomeMessageP3(Student student) {
-		System.out.println("                     Welcome " + student.getsName());
+		System.out.println("\n                Welcome back, "+ student.getsName());
+		
 	}
 	public void displayCourseListHeaderP3() {
-		System.out.println("My Classes:\n");
-		System.out.println("#  COURSE NAME  INSTRUCTOR NAME\n");
+		System.out.println("\nMy Classes:\n");
+		System.out.println("ID | COURSE NAME | INSTRUCTOR |\n");
 	}
 	
 	
@@ -647,9 +664,9 @@ public class MenuService {
 	 * Displays Register Phase options to user
 	 */
 	public void displayRegisterOptionsP3() {
-		System.out.println("\n          Select An Option\n");
-		System.out.println("1. Register to Class");
-		System.out.println("2. Logout");
+		System.out.println("\n                       Select An Option\n");
+		System.out.println("1. | Register to Class | ");
+		System.out.println("2. | Logout |");
 	}
 	
 	/**
@@ -658,7 +675,7 @@ public class MenuService {
 	
 	public void displayRegisterHeaderP3() {
 
-		System.out.println("            Welcome to Register page");
+		System.out.println("\n |-----------------------------|Register Menu|---------------------------|\n");
 	}
 	
 	
@@ -672,7 +689,7 @@ public class MenuService {
 	public void phase4(Session session, Student student) {
 		
 		List<Course> courseList = getAllCoursesP4(session);
-		displayRegisterSelectionHeaderP4();
+		System.out.println("ID | COURSE NAME | INSTRUCTOR |\n");
 		displayAllCoursesP4(courseList);
 		//select course
 		int courseId = Phase4Input();
@@ -727,8 +744,8 @@ public class MenuService {
 	 * Displays the regiater selection Headers
 	 */
 	public void displayRegisterSelectionHeaderP4() {
-		System.out.println("\nAll Courses:\n");
-		System.out.println("#  COURSE NAME  INSTRUCTOR NAME\n");
+		System.out.println("My Classes:\n");
+		System.out.println("ID | COURSE NAME | INSTRUCTOR |\n");
 	}
 	
 	
@@ -741,7 +758,6 @@ public class MenuService {
 	 */
 	public List<Course> getAllCoursesP4(Session session) {
 		List <Course> crslist = crsService.getAllCourses(session);
-		System.out.println(crslist);
 		return crslist;
 	}
 	
@@ -752,7 +768,6 @@ public class MenuService {
 	 * @param courseId
 	 * @param courseList
 	 */
-	
 	public void registerStudentForCourse(Student student, Session session, int courseId, List<Course> courseList) {
 		stdService.registerStudentToCourse(student, session, courseId, courseList);
 	}
@@ -760,16 +775,22 @@ public class MenuService {
 	/**
 	 * Displays register prompt to user
 	 */
-	
 	public void promptRegisterSelectionP4() {
-		System.out.println("\nPlease select a course 1-10");
+		System.out.println("\n              Select a course by ID");
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @param courseList
+	 */
 	public void displayAllCoursesP4(List<Course> courseList) {
 		
 		Iterator<Course> itr = courseList.iterator();
 		while(itr.hasNext()) {
 			Course c = itr.next();
-			System.out.println("Course id: " + c.getCid() + ", Name: " + c.getcName() + ", Instructor: " + c.getcInstructorName());
+			System.out.println("ID: " + c.getCid() + ", Name: " + c.getcName() + ", Instructor: " + c.getcInstructorName());
 
 		}
 	}
@@ -788,11 +809,21 @@ public class MenuService {
 		promptRestartGameP5();
 		return phase5Input();
 	}
+	
+	
+	/**
+	 * Display prompts to user to determine next set of actions
+	 */
 	public void promptRestartGameP5() {
-		System.out.println("\n1. Register for course");
-		System.out.println("2. Login");
-		System.out.println("3. EXIT/n");
+		System.out.println("\n1. | Register for course |");
+		System.out.println("2. | Login With Different Account |");
+		System.out.println("3. | EXIT |\n");
 	}
+	
+	/**
+	 * Handles the user input for endgame menu navigation
+	 * @return
+	 */
 	public int phase5Input() {
 		
 		int userSelection = 0;
@@ -805,12 +836,11 @@ public class MenuService {
 				userSelection = inputConsole.nextInt();
 				
 				if(userSelection >=1 && userSelection <=3) {
-					System.out.println("DEBUG phase 5: Validate selection ");
-					System.out.println("You entered " + userSelection);
+
 					phase5Game = false;
 				}else {
 					System.out.println("Opps... Only Enter 1, 2 or 3..");
-					System.out.println("DEBUG phase 5: inValidate selection ");
+				
 				}
 			} catch (InputMismatchException  e) {
 				System.out.println("Whoopies daisy! Only Enter 1, 2 or 3 , No words please.");

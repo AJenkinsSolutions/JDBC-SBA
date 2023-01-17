@@ -19,23 +19,27 @@ import jpa.service.MenuService;
 import jpa.service.StudentService;
 
 /**
- * Hello world!
- *
+ * Filename: SmsRunner.java
+ * @author Alexander Jenkins
+ * 01/17/2023
  */
 public class SMSRunner 
 {
+	/**
+	 * Sms Runnner is the main entry point
+	 * hibernate.cfg.xml will automaticly create a new data
+	 * RunMenu will automaticly seed data if needed
+	 */
     public static void main( String[] args )
     {
-        System.out.println( "Entry Point main()" );
+
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
-		System.out.println("**Successfully Opened Session**");
-		
 		Transaction trans = session.beginTransaction();
 		
-
 	
-		MenuService menu = new MenuService();		
+	
+		MenuService menu = new MenuService();	
 		menu.runMenu(session);
 			
     

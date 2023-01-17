@@ -7,7 +7,11 @@ import org.hibernate.Session;
 
 import jpa.entitymodels.Student;
 import jpa.entitymodels.Course;
-
+/**
+ * Filename: StudentDAO.java
+ * @author Alexander Jenkins
+ * 01/17/2023
+ */
 public interface StudentDAO {
 	
 	List<Student> getAllStudents(Session session);

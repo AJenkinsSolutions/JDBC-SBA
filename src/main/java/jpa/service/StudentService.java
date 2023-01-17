@@ -19,9 +19,16 @@ import jpa.dao.CourseDAO;
 import jpa.dao.StudentDAO;
 import jpa.entitymodels.Course;
 import jpa.entitymodels.Student;
-
+/**
+ * Filename: StudentService.java
+ * @author Alexander Jenkins
+ * 01/17/2023
+ */
 public class StudentService extends HibernateUtil implements StudentDAO {
 
+	/**
+	 * Retrieves all present students from the database
+	 */
 	@Override
 	public List<Student> getAllStudents(Session session) {
 	
@@ -57,6 +64,9 @@ public class StudentService extends HibernateUtil implements StudentDAO {
 		
 	}
 
+	/**
+	 * Retrieve student object by Email
+	 */
 	@Override
 	public Student getStudentByEmail(String email, Session session) {
 		
@@ -67,40 +77,43 @@ public class StudentService extends HibernateUtil implements StudentDAO {
 		
 		Student s = (Student) query.getSingleResult();
 		
-		System.out.println("Name: " + s.getsName() + ", Email : "+ s.getsEmail() + ", Password" + s.getsPass()+ " Course: " + s.getsCourses());
+		
 		
 		return s;
 	}
 
+	/**
+	 * Validate wheather student is present in the databas 
+	 */
 	@Override
 	public int validateStudent(Session session, String emailInput) {
 	
-		//Get user input
+	
 		Scanner input = new Scanner(System.in); 
-		System.out.println("validating Credenitals");
+//		System.out.println("validating Credenitals");
 		
-		//2 query data base
+
 		String hql = "FROM Student WHERE email = :email ";
 		
 		TypedQuery<Student> query = session.createQuery(hql, Student.class);
 		query.setParameter("email", emailInput);
 		
-		//3 get results 
+	
 		try {
 			Student std = (Student)query.getSingleResult();
-			System.out.println("\n>>Found Email<<");
+
 			
 			
-			//Get user input
-			System.out.println("Please Enter Password");
+			
+			System.out.println("\nPlease Enter Password");
 			String passwordInput = input.nextLine();
 			
-			//Get password for current Student
+			
 			String expectedPassword = std.getsPass();
 			
-			//Check if passward and passwordInput Match
+		
 			if(expectedPassword.equals(passwordInput)) {
-				System.out.println("Successfully validated");
+				System.out.println("Successfully validated !");
  
 				return 3;
 				
@@ -118,6 +131,10 @@ public class StudentService extends HibernateUtil implements StudentDAO {
 		
 	}
 
+	
+	/**
+	 * Retreive the current student courses present in the database
+	 */
 	@Override
 	public Set<Course> getStudentCourses(Student student, Session session) {
 		// iterate through the list of Courses
@@ -127,6 +144,9 @@ public class StudentService extends HibernateUtil implements StudentDAO {
 	}
 
 	
+	/**
+	 * Register current student to selected course
+	 */
 	@Override
 	public void registerStudentToCourse(Student student, Session session, int courseId, List<Course> crsList) {
 		

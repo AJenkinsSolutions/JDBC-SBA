@@ -10,9 +10,17 @@ import org.hibernate.Session;
 
 import jpa.dao.CourseDAO;
 import jpa.entitymodels.Course;
-
+/**
+ * Filename: CourseService.java
+ * @author Alexander Jenkins
+ * 01/17/2023
+ */
 public class CourseService extends HibernateUtil implements CourseDAO {
-
+	
+	
+	/**
+	 * Returns all courses present in the data
+	 */
 	@Override
 	public 	List<Course> getAllCourses(Session session) {
 		
@@ -22,12 +30,8 @@ public class CourseService extends HibernateUtil implements CourseDAO {
 		TypedQuery<Course> query = session.createQuery(hql, Course.class);
 		List<Course> results = query.getResultList();
 		
-		//fancy iterator
 		Iterator<Course> itr = results.iterator();
-//		while(itr.hasNext()) {
-//			Course c =itr.next();
-//			
-//		}
+
 		
 	
 		return results;

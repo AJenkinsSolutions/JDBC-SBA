@@ -12,18 +12,18 @@ import jpa.service.HibernateUtil;
 import jpa.service.StudentService;
 
 /**
- * Unit test for simple App.
+ * Unit test for our sms manager app
  */
 public class SMSRunnerTest 
 {
     /**
-     * Rigorous Test :-)
+     * This test vvalidates a students credentials are present within the database test
      */
     @Test
     public void testValidateStudent()
     {
     	
-    	//Password need to be inputted by tester:  X1uZcoIh0dj
+    	
     	SessionFactory factory = HibernateUtil.getSessionFactory();
     	Session session = HibernateUtil.getConnection(factory);
     	StudentDAO testStdDao = new StudentService();
