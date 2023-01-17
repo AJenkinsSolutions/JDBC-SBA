@@ -33,34 +33,19 @@ public class SMSRunner
 		
 		Transaction trans = session.beginTransaction();
       
-		//===================================//
-		//Create Tables
+		//================Seed Data base===================//
+		//			Create Tables
 //        Student std = new Student();
 //        Course crs = new Course();
   
 			MenuService menu = new MenuService();
-					
 			menu.runMenu(session);
-        
-//		
-//        StudentDAO stdService = new StudentService();
-//        	
-//        Student student = stdService.getStudentByEmail("hluckham0@google.ru", session);
-//
-//        
-//        stdService.registerStudentToCourse(student, session);
-//		
-////		stdService.getStudentByEmail("hluckham0@google.ru", session);
-//	
-//		stdService.getStudentCourses(student, session);
-//       stdService.getAllStudents(session);
-        
-//        stdService.validateStudent(session);
-        
+    
+        //=======Close connection =====///
         
         trans.commit();
         factory.close();
         session.close();
-        	
+        	 
     }
 }

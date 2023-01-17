@@ -24,10 +24,10 @@ public class CourseService extends HibernateUtil implements CourseDAO {
 		
 		//fancy iterator
 		Iterator<Course> itr = results.iterator();
-		while(itr.hasNext()) {
-			Course c =itr.next();
-			System.out.println("Course id: " + c.getCid() + ", Name: " + c.getcName() + ", Instructor: " + c.getcInstructorName());
-		}
+//		while(itr.hasNext()) {
+//			Course c =itr.next();
+//			
+//		}
 		
 	
 		return results;

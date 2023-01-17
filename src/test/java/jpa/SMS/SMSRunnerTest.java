@@ -1,6 +1,7 @@
 package jpa.SMS;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,12 +22,14 @@ public class SMSRunnerTest
     @Test
     public void testValidateStudent()
     {
+    	
+    	//Password need to be inputted by tester:  X1uZcoIh0dj
     	SessionFactory factory = HibernateUtil.getSessionFactory();
     	Session session = HibernateUtil.getConnection(factory);
     	StudentDAO testStdDao = new StudentService();
-    	boolean results = testStdDao.validateStudent(session, "hluckham0@google.ru" );
+    	int results = testStdDao.validateStudent(session, "hluckham0@google.ru" );
     	
     	
-        assertTrue( results );
+        assertEquals( 3, results );
     }
 }

@@ -14,7 +14,7 @@ public interface StudentDAO {
 	
 	Student getStudentByEmail(String email, Session session);
 	
-	boolean validateStudent(Session session, String emailInput);
+	int validateStudent(Session session, String emailInput);
 	
 	void registerStudentToCourse(Student student, Session session, int courseId, List<Course> crsList);
 	
